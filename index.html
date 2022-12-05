@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+   <head>
+	 
+	  
+	  <title>超级厉害</title>
+	  
+		  
+      <div class="special">
+         <h1 id="special"> Yihan Wang <br>
+            <span class="minText">22012298</span> 
+		 </h1>
+      </div>
+      <script>window.onerror = function(error, url, line) {parent.postMessage(["console", "❌ -- [ERROR] -- ❌ -- ⚠️ " + error], "*")};var cl = console.log;console.log = function () {var msg = [...arguments].join();parent.postMessage(["console", msg], "*");  }  </script><script src = "https://mimicproject.com/libs/maximilian.js">
+</script>  
+      <canvas id="screensaver"></canvas>
+      <style>
+         body {
+         position: absolute;
+		 background-image:url('background.jpg'); 
+		 background-repeat: auto; 
+		 background-size: cover;
+         margin: 0;
+         padding: 0;
+         width: 100%;
+         height: 100%;
+         }
+         #screensaver {
+         position: fixed;
+         left: 0;
+         top: 0;
+         width: 100%;
+         height: 100%;
+         pointer-events: none;
+         }
+         .special {
+         position: relative;
+         margin: auto;
+         top:80%; 
+         text-align: center;
+         line-height:1;
+         }
+      </style>
+	  
+		  
+   </head>
+   <body>
+      <script language="javascript" type="text/javascript">
+         special.style.color="white";//颜色标注
+         ! function () {	
+         'use strict';
+         
+         var run = function () {
+         
+         ctx.clearRect(0, 0, canvas.width, canvas.height);
+         
+         hue = (hue < 360) ? (hue + 5) : 0; 
+         ctx.strokeStyle = "hsl(" + Math.floor(hue) + ", 80%, 80%)";
+         
+         ctx.lineWidth = 1;
+         
+         if (nPoly < 50) poly[nPoly++] = new Poly();
+         
+         for (var i = 0; i < nPoly; i++) {
+         	poly[i].anim();
+         }
+         
+         
+         	requestAnimationFrame(run);
+         
+         }
+         
+         var Poly = function () {
+         this.p   = [];
+         var space = 0.5;
+         var dV  = [-space,space,space,-space,-space,space,-space,space];
+         var xyP = [1,1,2,2,1,3,3,1];
+         for (var i = 0; i < 4; i++) { 
+         	this.p[i] = {
+         		dx: 5 * dV[i],
+         		dy: 5 * dV[i + 4],
+         		x: 5 * ((canvas.width / 25 / (2 * 4)) * xyP[i] * 10),
+         		y: 4 * ((canvas.height / 20 / (2 * 4)) * xyP[i + 4] * 10)
+         	}
+         }
+         
+         }
+         
+         Poly.prototype.anim = function () {
+         ctx.beginPath();
+         ctx.moveTo(this.p[0].x, this.p[0].y);
+         ctx.lineTo(this.p[1].x, this.p[1].y);
+         ctx.lineTo(this.p[2].x, this.p[2].y);
+         ctx.lineTo(this.p[3].x, this.p[3].y);
+         ctx.closePath();
+         ctx.stroke();
+         for (var i = 0; i < 4; i++) {
+         	var l = this.p[i];
+         	l.x += l.dx;
+         	l.y += l.dy;
+         	if (l.x < 0) l.dx = -l.dx; else if (l.x > canvas.width) l.dx = -l.dx;
+         	if (l.y > canvas.height) l.dy = -l.dy; else if (l.y < 0) l.dy = -l.dy;
+         }	
+         }
+         
+         var canvas = {width:0, height:0, elem: document.getElementById('screensaver')};
+         var ctx = canvas.elem.getContext("2d");
+         ctx.translate(2, 2);
+         var hue = 800;
+         
+         canvas.resize = function() {
+         this.width = this.elem.width = this.elem.offsetWidth * 1;
+         this.height = this.elem.height = this.elem.offsetHeight * 1;
+         }
+         window.addEventListener('resize', canvas.resize.bind(canvas), false);
+         canvas.resize();
+         
+         var poly = [], nPoly = 0;
+         
+         run();
+         }();
+         
+     
+</script>
+      <script>
+         var mouseX = 0;
+         var mouseY = 0;
+         var maximJs = maximilian();
+         var maxiAudio = new maximJs.maxiAudio();
+         var micksKick = new maximJs.maxiSample();
+         var micksHat = new maximJs.maxiSample();
+         var micksnare = new maximJs.maxiSample();
+          var myClock = new maximJs.maxiClock();
+         var myOsc = new maximJs.maxiOsc();
+         var myDelay = new maximJs.maxiDelayline();
+          
+         var kickCount = mouseX;
+         var snareCount = mouseY;
+         var snareGain = 1.0;
+         var kickPitch = 0.75;
+         var kickPitch2= 1.2;
+         var snarePitch = 0.5;
+         var kickGain = 1.0;
+         var hatPitch = 5.0;
+         var hatGain = 1.0;
+         var myTempo = 120;
+         var delayTime = ((myTempo/60 * 44100) / 16) * 3;
+         var feedback = 0.6;
+         
+         
+          myClock.setTempo(myTempo);
+          myClock.setTicksPerBeat(4);
+           
+         maxiAudio.init();
+         
+         maxiAudio.loadSample('RR1.wav', micksKick);
+         maxiAudio.loadSample('RR2.wav', micksnare);
+         maxiAudio.loadSample('RR3.wav', micksHat);  
+         
+         function getMouse (mousePosition) {
+
+         mouseX = mousePosition.layerX;
+         mouseY = mousePosition.layerY;
+         }
+         
+         
+         function drummer() {
+         	var out=0;
+         
+              myClock.ticker();
+                  
+            
+              if( myClock.tick && myClock.playHead%kickCount===0){
+                 
+                  micksKick.trigger();
+         kickGain = 1.0;
+              }
+              if( myClock.tick && Math.random()>0.8){
+                 
+                 
+                  micksKick.trigger();
+                kickGain = 0.6;
+                  
+              }
+              
+            	if( myClock.tick && myClock.playHead%snareCount===4){
+                 snarePitch = Math.random()*2;
+                 micksnare.trigger();
+                 snareGain = 1.0;
+              }
+            
+                if( myClock.tick && Math.random()>0.25){
+                 
+                 micksHat.trigger();
+                 hatGain = 0.16;
+              }
+               
+            out = ((kickGain * micksKick.playOnce(kickPitch * kickPitch2)) + (snareGain* micksnare.playOnce(Math.abs(myOsc.sinewave(snarePitch)))) + (hatGain* micksHat.playOnce(hatPitch))) ; 
+         return (out + myDelay.dl(out,delayTime,feedback)) * 10.0;
+         }
+         
+         maxiAudio.play = function() {
+         
+            return drummer();
+             
+         }
+         
+     
+</script>
+   </body>
+</html>
